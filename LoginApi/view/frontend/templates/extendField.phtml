@@ -1,0 +1,100 @@
+<?php
+
+/** @var \AHT\LoginApi\Block\Extend $block */
+if ($block->isEnabledModule()) {
+    $rowData = $block->getConfigJson();
+    $properties = $rowData->properties;
+    $consents = $rowData->consents;
+    $required_properties = $rowData->required;
+    $field = 'loginApi';
+}
+?>
+<!-- properties -->
+<!-- consents -->
+<!-- required phaanf properties -->
+<?php if ($block->isEnabledModule()) : ?>
+    <?php foreach ($properties as $key => $value) : ?>
+        <?php
+        $required = '';
+        if (in_array($key, $required_properties)) {
+            $required = 'required';
+        }
+        ?>
+        <div class="field <?= $required ?>">
+            <label class="label"><?= $key ?></label>
+            <div class="control">
+                <?php if (isset($value->enum)) : ?>
+                    <select name="<?= $field ?>[properties][<?= $key ?>]" <?= $required ?>>
+                        <?php foreach ($value->enum as $v) : ?>
+                            <option value="<?= $v ?>"><?= $v ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else : ?>
+                    <?php
+                    $type = 'text';
+                    ?>
+
+                    <?php if (isset($value->format) && $value->format == 'date') : ?>
+                        <?php
+                        $limit_date = 'null';
+                        if (isset($value->minYearsSince)) {
+                            $limit_date = '-' . $value->minYearsSince . 'y';
+                        } elseif (isset($value->maxYearsSince)) {
+                            $limit_date = '+' . $value->maxYearsSince . 'y';
+                        }
+                        ?>
+                        <input type="<?= $type ?>" id="fomat_date_<?= $key ?>" name="<?= $field ?>[properties][<?= $key ?>]" <?= $required ?>>
+                        <script>
+                            require([
+                                'jquery',
+                                'mage/translate',
+                                'mage/calendar'
+                            ], function($, $t) {
+                                $('#fomat_date_<?= $key ?>').calendar({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    showButtonPanel: true,
+                                    currentText: $t('Go Today'),
+                                    closeText: $t('Close'),
+                                    showWeek: true,
+                                    dateFormat: "dd-mm-yy",
+                                    maxDate: "<?= $limit_date ?>"
+                                });
+                            })
+                        </script>
+                    <?php else : ?>
+                        <?php if ($key == 'msisdn') : ?>
+                            <input minlength="11" maxlength="11" class="input-number validate-length maximum-length-11 miximum-length-11" type="number" data-validate="{required:true, 'validate-length':true}" name="<?= $field ?>[properties][<?= $key ?>]" <?= $required ?>>
+                        <?php else : ?>
+                            <input type="<?= $type ?>" name="<?= $field ?>[properties][<?= $key ?>]" <?= $required ?>>
+                        <?php endif ?>
+                    <?php endif ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach ?>
+
+    <?php foreach ($consents as $key => $value) : ?>
+        <?php
+        $required = '';
+        if ($value->required) {
+            $required = 'required';
+        }
+        ?>
+        <div class="field <?= $required ?>">
+            <label for="" class="label"><?= $key ?></label>
+            <div>
+                <input type="radio" value="0" name="<?= $field ?>[consents][<?= $key ?>]" class="checkbox" <?= $required ?>>
+                <label for="" class="label">
+                    <span>yes</span>
+                </label>
+            </div>
+            <div>
+                <input type="radio" value="0" name="<?= $field ?>[consents][<?= $key ?>]" class="checkbox" <?= $required ?>>
+                <label for="" class="label">
+                    <span>no</span>
+                </label>
+            </div>
+        </div>
+    <?php endforeach ?>
+<?php endif ?>

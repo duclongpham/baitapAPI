@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="custom_id" translate="label" sortOrder="10">
+            <label>Custom</label>
+        </tab>
+        <section id="loginapi" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>MPC Integration</label>
+            <tab>custom_id</tab>
+            <resource>AHT_LoginApi::acl_rule</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>General</label>
+                <field id="base_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Base URL</label>
+                </field>
+                <field id="x_client_authorization" translate="label" type="password" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>x-client-authorization</label>
+                </field>
+                <field id="x_product_name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>x-product-name</label>
+                </field>
+                <field id="x_user_agent" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>x-user-agent</label>
+                </field>
+                <field id="x_loyalty_club_slug" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>x-loyalty-club-slug</label>
+                </field>
+            </group>
+            <group id="integration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>MPC Integration - custom registration</label>
+                <field id="action" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="registration_schema" translate="label" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>x-client-authorization code</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

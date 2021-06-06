@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <loginapi>
+            <general>
+                <base_url>https://api.mpc.dev.placewise.com/</base_url>
+                <x_product_name>omnyfy</x_product_name>
+                <x_user_agent>CURL manual test</x_user_agent>
+                <x_loyalty_club_slug>kuben</x_loyalty_club_slug>
+            </general>
+            <integration>
+                <action>0</action>
+            </integration>
+        </loginapi>
+    </default>
+</config>
